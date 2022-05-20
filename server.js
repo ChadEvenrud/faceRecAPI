@@ -1,16 +1,19 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { response } from "express";
+import cors from "cors";
 
 const app = express();
-app.use(bodyParser.json());
+
+app.use(bodyParser.json()); // Express needs middleware like bodyparser. Bodyparser takes request and takes the json data and parses it out so express can use the data
+app.use(cors()); // Cors allows express to test using local host. Note: I need to look more into this. There is an article about it on ZTM
 
 //Testing data
 const database = {
     users: [{
             id: "123",
             name: "chad",
-            email: "chadevenrid@xyz.com",
+            email: "chad@gmail.com",
             password: "waterpolo",
             entries: 0,
             joined: new Date(),
@@ -26,6 +29,7 @@ const database = {
     ],
 };
 
+//Get request at the root level. This will send back the users object when a URL access the root site "index"
 app.get("/", (req, res) => {
     res.send(database.users);
 });
@@ -34,7 +38,7 @@ app.get("/", (req, res) => {
 app.post("/signin", (req, res) => {
     req.body.email === database.users[0].email &&
         req.body.password === database.users[0].password ?
-        res.json("Success!") :
+        res.json(database.users[0]) :
         res.status(400).json("error logging in");
 });
 
@@ -43,7 +47,7 @@ app.post("/signin", (req, res) => {
 app.post("/register", (req, res) => {
     const { name, email, password } = req.body;
     database.users.push({
-        id: "124",
+        id: "125",
         name: name,
         email: email,
         password: password,
