@@ -38,4 +38,4 @@ app.post("/register", handleRegister(db, bcrypt));
 app.get("/profile/:id", userProfile(db));
 app.put("/image", handleImage(db));
 
-app.listen("3000");
+app.listen(process.env.PORT || "3000");
