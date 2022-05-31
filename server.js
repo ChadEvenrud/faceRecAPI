@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { response } from "express";
 import cors from "cors";
 import knex from "knex";
 import bcrypt, { hash } from "bcrypt-nodejs";
